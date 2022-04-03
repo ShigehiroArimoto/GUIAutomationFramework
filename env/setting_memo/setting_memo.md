@@ -235,27 +235,5 @@ d-----        2022/03/14     18:56                tkinter
 - pyautoguiの参考記事 : https://qiita.com/hirohiro77/items/78e26a59c2e45a0fe4e3
 
 
-# Gitを用いた開発環境のセットアップ
 
-## Git for Windows Portable版
-
-- インストール 参考記事 : https://qiita.com/ryo-sato/items/6c6553a7c2db9b96ce1d
-  - https://git-scm.com/download/win
-  - 任意のフォルダに展開する。今回はC:\PortableGit\を指定した。
-  - 環境変数にC:\PortableGit\binを追加する。
-
-- gitの初期設定
-  - PS C:\Users\Shigehiro\Desktop\python_emb\source\learing\multiprocess_guiautomation> git config --global user.name "Shigehiro Arimoto"
-  - PS C:\Users\Shigehiro\Desktop\python_emb\source\learing\multiprocess_guiautomation> git config --global user.email shige.arimoto@gmail.com
-
-- VS CODE
-  - ローカルリポジトリを新規作成する場合
-    - VS CODE上で、「リポジトリを初期化する」を実行し、バージョン管理をしたいフォルダを指定する。
-    - VS CODEのソース管理メニュー→リモート→「リモートの追加」機能により、現在のローカルリポジトリをリモートリポジトリに関連付けが可能となる。
-  - 既存のリモートリポジトリをローカルリポジトリに複製する場合
-    - リポジトリ先を指定してGit Cloneを実行することで、ローカルリポジトリを作成することができる。
-  - gitiignoreファイルにより、バージョン管理の対象外とするフォルダやファイルを指定する。
-  - 拡張機能をインストール
-    - GIT Graph
-  
   
