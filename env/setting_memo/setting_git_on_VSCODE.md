@@ -61,7 +61,12 @@
 - merge
   - merge先のブランチにチェックアウトする。
   - gitGraph上からmerge元となるブランチとコミットを選択して、「Mearge into current branch」を実行する。
-  - 衝突が発生した場合は別途対応が必要。
+  - 衝突したマージをキャンセルする場合は以下のコマンドを実行する。
+```
+PS C:\Python\Repository\TestingGit> git reset --hard HEAD
+HEAD is now at 0091949 Merge branch 'rebase_test'
+```
+
   - merge処理には3種類の方法が存在する。
     - fast forward(早送り)
       - マージコミットは作成されず、ブランチの位置を移動するだけとなる。
@@ -73,17 +78,17 @@
 
 - conflict
   - 同一ファイルの同一行に異なる変更が施され、Pull、mergeができない状態のこと。
-    - Pull時
-      - 未ステージ、未コミットのファイルに対しconflictが発生した場合、PULLが失敗する。
-      - commit後、PULLを実行した時にconflictが発生する場合
-        - fatal: Need to specify how to reconcile divergent branches.が発生してPULLに失敗する。→gitの下記設定が必要。
-          - hint:   git config pull.rebase false  # merge
-          - hint:   git config pull.rebase true   # rebase
-          - hint:   git config pull.ff only       # fast-forward only
-    - branchのmerge時
-      - 
-  - conflictの対処方法
-    - conflictが発生したファイルは、!マークが付与されている。エディタでファイルを本来の内容に編集した後にコミットする。
+  - conflictが発生したファイルは、!マークが付与されている。エディタでファイルを本来の内容に編集した後にコミットする。
+  - Pull時のconflict
+    - 未ステージ、未コミットのファイルに対しconflictが発生した場合、PULLが失敗する。
+    - commit後、PULLを実行した時にconflictが発生する場合
+      - fatal: Need to specify how to reconcile divergent branches.が発生してPULLに失敗する。→gitの下記設定が必要。
+        - hint:   git config pull.rebase false  # merge
+        - hint:   git config pull.rebase true   # rebase
+        - hint:   git config pull.ff only       # fast-forward only
+      - rebaseはリスクがある。merge設定にしておく方が無難。
+  - branch merge時のconflict
+      - エディタで衝突した箇所を編集し、コミットを実行する。
 
 - origin
     - ローカルリポジトリにおけるリモートリポジトリを示す名前。Clone時にGitが自動的につける名前。
@@ -94,7 +99,7 @@ origin  https://github.com/ShigehiroArimoto/TestingGit (push)
 ```
 
 - head
-  - 現在使用しているブランチの先頭を示す名前
+  - 現在作業している場所を示すポインタ。唯一の存在。
   - origin/headはリモートリポジトリの先頭
 
 - Tag
@@ -112,6 +117,10 @@ origin  https://github.com/ShigehiroArimoto/TestingGit (push)
 - cherry pick
   - ブランチ全体をマージするのではなく、ブランチ上にある特定のコミットだけを選択してマージする機能。
 
+- detached head状態
+  - HEADがブランチでなくコミットIDを直接指し示している状態。ブランチ不在の状態。過去のコミットにCheckoutすることで発生する。
+  - detachde HEAD状態で実行したコミットは、checkoutを実行すると参照できなくなってしまう。
+  - branchを新規作成することで問題を回避できる。
 
 ## GitHubの機能
 - folk
