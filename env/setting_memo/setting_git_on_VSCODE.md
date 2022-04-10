@@ -61,7 +61,7 @@
 - merge
   - merge先のブランチにチェックアウトする。
   - gitGraph上からmerge元となるブランチとコミットを選択して、「Mearge into current branch」を実行する。
-  - 衝突したマージをキャンセルする場合は以下のコマンドを実行する。
+  - 衝突が発生した場合、マージをキャンセルする場合は以下のコマンドを実行する。
 ```
 PS C:\Python\Repository\TestingGit> git reset --hard HEAD
 HEAD is now at 0091949 Merge branch 'rebase_test'
@@ -69,26 +69,25 @@ HEAD is now at 0091949 Merge branch 'rebase_test'
 
   - merge処理には3種類の方法が存在する。
     - fast forward(早送り)
-      - マージコミットは作成されず、ブランチの位置を移動するだけとなる。
+      - マージコミットは作成されず、ブランチの位置を移動するだけとなる。履歴が枝分かれしない。
     - non fast forward
-      - マージによりマージコミットが作成される。枝分かれした履歴が保持されるため、後から作業の振り返りがしやすい。
+      - マージによりマージコミットが作成される。枝分かれした履歴が保持されるため、後から作業を振り返りやすい。
     - rebase
-      - すでにリモートリポジトリにPushされているブランチに対するrebaseは避けること。rebaseにより新しいコミットに作り変えられるため、pushできなくなってしまうため。
-      - ローカルリポジトリの中に存在するブランチにのみrebaseを行うこと。
+      - 複数branchのコミット履歴を作り変え、一本化する。
+      - すでにリモートリポジトリにPushされているブランチに対するrebaseは避けること。rebaseにより新しいコミットに作り変えられるため、pushできなくなってしまうため。ローカルリポジトリ内に存在するブランチに対してのみrebaseを行うこと。
 
 - conflict
-  - 同一ファイルの同一行に異なる変更が施され、Pull、mergeができない状態のこと。
+  - 同一ファイルの同一行に異なる変更が施され、Pull(fetch+merge)、mergeができない状態のこと。
   - conflictが発生したファイルは、!マークが付与されている。エディタでファイルを本来の内容に編集した後にコミットする。
   - Pull時のconflict
     - 未ステージ、未コミットのファイルに対しconflictが発生した場合、PULLが失敗する。
-    - commit後、PULLを実行した時にconflictが発生する場合
-      - fatal: Need to specify how to reconcile divergent branches.が発生してPULLに失敗する。→gitの下記設定が必要。
+    - commit後、PULLを実行した時にconflictが発生する場合は、「fatal: Need to specify how to reconcile divergent branches.」が発生してPULLに失敗する。gitの下記パラメータの設定が必要。
         - hint:   git config pull.rebase false  # merge
         - hint:   git config pull.rebase true   # rebase
         - hint:   git config pull.ff only       # fast-forward only
-      - rebaseはリスクがある。merge設定にしておく方が無難。
+    - rebaseはリスクがあるため、merge設定にしておく方が無難。
   - branch merge時のconflict
-      - エディタで衝突した箇所を編集し、コミットを実行する。
+      - 衝突した箇所をエディタ上で編集し、コミットを実行する。
 
 - origin
     - ローカルリポジトリにおけるリモートリポジトリを示す名前。Clone時にGitが自動的につける名前。
@@ -108,10 +107,10 @@ origin  https://github.com/ShigehiroArimoto/TestingGit (push)
   - GitHub上ではタグが一覧化され、各タグのリポジトリ内容をアーカイブファイルとしてダウンロードすることができる機能がある。
   
 - revert
-  - 過去のコミットを打ち消す。コミット自体を削除するわけではなく、反対の内容を新規コミットすることで、過去の変更を打ち消す。
+  - 過去のコミットを打ち消す。コミット自体を削除するわけではなく、打ち消す内容を新たにコミットすることで、過去の変更を打ち消す。
 
 - stash
-  - 未コミットの変更を一時退避する機能。
+  - 編集中である未コミットの変更をまとめて一時退避する機能。
   - 作業途中で別ブランチへのチェックアウトが必要な時に使用する。作業後にブランチへ復帰した後に、stashを適用することで、編集中の内容が復元される。
 
 - cherry pick
@@ -120,7 +119,7 @@ origin  https://github.com/ShigehiroArimoto/TestingGit (push)
 - detached head状態
   - HEADがブランチでなくコミットIDを直接指し示している状態。ブランチ不在の状態。過去のコミットにCheckoutすることで発生する。
   - detachde HEAD状態で実行したコミットは、checkoutを実行すると参照できなくなってしまう。
-  - branchを新規作成することで問題を回避できる。
+  - その場合は、慌てずbranchを新規作成することで問題を回避できる。
 
 ## GitHubの機能
 - folk
