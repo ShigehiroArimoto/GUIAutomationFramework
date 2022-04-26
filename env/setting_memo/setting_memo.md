@@ -165,6 +165,7 @@ def _screenshot_win32(imageFilename=None, region=None):
     im = ImageGrab.grab(all_screens=True)
 ```
 
+  - この改造により全ディスプレイの領域に対応するスクリーンショットが取得されるようになる。画像認識やスクリーンショットの際は範囲を指定した方がよい。
 
 ```
 x,y = pyautogui.locateCenterOnScreen(os.path.join(os.path.dirname(__file__),"youtube.png"),confidence=0.8,region=(1921,0,2900,1900))
