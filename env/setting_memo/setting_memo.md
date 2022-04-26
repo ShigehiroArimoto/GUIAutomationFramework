@@ -149,6 +149,31 @@ PS C:\Users\Shigehiro\Desktop\python_emb\interpreter\working\python-3.10.1-embed
 
 ```
 
+- PyautoGUIのスクリーンショットと画像認識の機能をデュアルディスプレイに対応する方法
+  - https://qiita.com/kznSk2/items/a6833c095aec3b8ce72e
+  - ImageGrab.grab()関数のキーワード引数all_screensにTrueを指定する。
+    - C:\Python\env\interpreter\working\python-3.10.1-embed-amd64\Lib\site-packages\pyscreeze\__init__.py
+
+```
+def _screenshot_win32(imageFilename=None, region=None):
+    """
+    TODO
+    """
+    # TODO - Use the winapi to get a screenshot, and compare performance with ImageGrab.grab()
+    # https://stackoverflow.com/a/3586280/1893164
+    # im = ImageGrab.grab()
+    im = ImageGrab.grab(all_screens=True)
+```
+
+
+```
+x,y = pyautogui.locateCenterOnScreen(os.path.join(os.path.dirname(__file__),"youtube.png"),confidence=0.8,region=(1921,0,2900,1900))
+pyautogui.click(x,y)
+
+screenshot = pyautogui.screenshot(region=(1921,0,2900,1900))
+screenshot.save(os.path.join(os.path.dirname(__file__),"test.png"))
+```
+
 - pySimplegui※tkinter必須
 
 ```
